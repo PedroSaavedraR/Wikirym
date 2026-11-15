@@ -3,6 +3,7 @@ package es.udc.ps.wikirym.app.presentation.main.adapter;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import androidx.annotation.NonNull;
@@ -18,9 +19,15 @@ public class EntryAdapter extends Adapter<EntryAdapter.EntryHolder> {
 
     private List<WikiEntry> mItems;
 
-    public EntryAdapter(List<WikiEntry> items) {
+    public EntryAdapter() {
+
+        mItems = new ArrayList<>();
+    }
+
+    public void setItems(List<WikiEntry> items) {
 
         mItems = items;
+        notifyDataSetChanged();
     }
 
     @NonNull
