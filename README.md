@@ -24,3 +24,4 @@ Sigue la misma evolución paso a paso que el proyecto de ejemplo de clase (PSICl
 | [`feature/04_retrofit_async`](docs/04_retrofit_async.md) | Monolítica | Llamada asíncrona con `enqueue` y `Toast` de error |
 | [`feature/05_models`](docs/05_models.md) | Monolítica | Modelos `CategoryMembersResponse` y `WikiEntry` que encajan con el JSON de MediaWiki |
 | [`feature/06_retrofit_logging`](docs/06_retrofit_logging.md) | Monolítica | `HttpLoggingInterceptor` de OkHttp (solo en *debug*) |
+| [`feature/07_retrofit_headers`](docs/07_retrofit_headers.md) | Monolítica | Interceptor con `User-Agent`, `Accept` y los parámetros fijos de MediaWiki; lista de personajes |

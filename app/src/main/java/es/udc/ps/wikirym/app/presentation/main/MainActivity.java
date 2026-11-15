@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import es.udc.ps.wikirym.BuildConfig;
 import es.udc.ps.wikirym.R;
 import es.udc.ps.wikirym.app.data.UespAPI;
+import es.udc.ps.wikirym.app.data.interceptor.UespApiInterceptor;
 import es.udc.ps.wikirym.app.domain.CategoryMembersResponse;
 import es.udc.ps.wikirym.app.domain.EntryType;
 import es.udc.ps.wikirym.app.domain.WikiEntry;
@@ -65,6 +66,8 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> {
         HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor()
                 .setLevel(BuildConfig.DEBUG ? HttpLoggingInterceptor.Level.BODY : HttpLoggingInterceptor.Level.NONE);
         List<Interceptor> interceptors = okHttpClient.interceptors();
+        // Added before the logging interceptor so that the log shows the final request
+        interceptors.add(new UespApiInterceptor());
         interceptors.add(loggingInterceptor);
 
         Retrofit retrofit = new Retrofit.Builder().baseUrl("https://en.uesp.net/w/").client(okHttpClient.build())
@@ -72,12 +75,10 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> {
 
         UespAPI api = retrofit.create(UespAPI.class);
 
-        EntryType type = EntryType.QUEST;
-        String category = "Category:Skyrim-Quests";
+        EntryType type = EntryType.CHARACTER;
+        String category = "Category:Skyrim-NPCs";
         int limit = 50;
-        String format = "json";
-        int formatVersion = 2;
-        Call<CategoryMembersResponse> call = api.getCategoryMembers(category, limit, format, formatVersion);
+        Call<CategoryMembersResponse> call = api.getCategoryMembers(category, limit);
 
         call.enqueue(new Callback<CategoryMembersResponse>() {
 
