@@ -23,3 +23,4 @@ Sigue la misma evolución paso a paso que el proyecto de ejemplo de clase (PSICl
 | [`feature/03_retrofit_1`](docs/03_retrofit_1.md) | Monolítica | Retrofit síncrono contra la API de UESP (`NetworkOnMainThreadException`) |
 | [`feature/04_retrofit_async`](docs/04_retrofit_async.md) | Monolítica | Llamada asíncrona con `enqueue` y `Toast` de error |
 | [`feature/05_models`](docs/05_models.md) | Monolítica | Modelos `CategoryMembersResponse` y `WikiEntry` que encajan con el JSON de MediaWiki |
+| [`feature/06_retrofit_logging`](docs/06_retrofit_logging.md) | Monolítica | `HttpLoggingInterceptor` de OkHttp (solo en *debug*) |

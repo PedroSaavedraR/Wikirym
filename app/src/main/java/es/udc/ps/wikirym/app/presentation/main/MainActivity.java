@@ -9,6 +9,7 @@ import java.util.List;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
+import es.udc.ps.wikirym.BuildConfig;
 import es.udc.ps.wikirym.R;
 import es.udc.ps.wikirym.app.data.UespAPI;
 import es.udc.ps.wikirym.app.domain.CategoryMembersResponse;
@@ -17,6 +18,9 @@ import es.udc.ps.wikirym.app.domain.WikiEntry;
 import es.udc.ps.wikirym.app.presentation.BaseActivity;
 import es.udc.ps.wikirym.app.presentation.main.adapter.EntryAdapter;
 import es.udc.ps.wikirym.databinding.ActivityMainBinding;
+import okhttp3.Interceptor;
+import okhttp3.OkHttpClient;
+import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -56,7 +60,14 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> {
 
     private void getEntries() {
 
-        Retrofit retrofit = new Retrofit.Builder().baseUrl("https://en.uesp.net/w/")
+        OkHttpClient.Builder okHttpClient = new OkHttpClient.Builder();
+
+        HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor()
+                .setLevel(BuildConfig.DEBUG ? HttpLoggingInterceptor.Level.BODY : HttpLoggingInterceptor.Level.NONE);
+        List<Interceptor> interceptors = okHttpClient.interceptors();
+        interceptors.add(loggingInterceptor);
+
+        Retrofit retrofit = new Retrofit.Builder().baseUrl("https://en.uesp.net/w/").client(okHttpClient.build())
                 .addConverterFactory(GsonConverterFactory.create()).build();
 
         UespAPI api = retrofit.create(UespAPI.class);
