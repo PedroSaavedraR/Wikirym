@@ -64,7 +64,7 @@ public class EntryAdapter extends Adapter<EntryAdapter.EntryHolder> {
 
         private void bind(WikiEntry entry) {
 
-            mBinding.rowEntryTitle.setText(entry.getTitle());
+            mBinding.rowEntryTitle.setText(entry.getDisplayTitle());
             mBinding.rowEntryType.setText(getTypeLabel(entry.getType()));
         }
 

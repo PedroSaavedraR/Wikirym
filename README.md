@@ -22,3 +22,4 @@ Sigue la misma evolución paso a paso que el proyecto de ejemplo de clase (PSICl
 | [`feature/02_model_entry`](docs/02_model_entry.md) | Monolítica | Modelo `WikiEntry` y enum `EntryType`; tema con action bar |
 | [`feature/03_retrofit_1`](docs/03_retrofit_1.md) | Monolítica | Retrofit síncrono contra la API de UESP (`NetworkOnMainThreadException`) |
 | [`feature/04_retrofit_async`](docs/04_retrofit_async.md) | Monolítica | Llamada asíncrona con `enqueue` y `Toast` de error |
+| [`feature/05_models`](docs/05_models.md) | Monolítica | Modelos `CategoryMembersResponse` y `WikiEntry` que encajan con el JSON de MediaWiki |

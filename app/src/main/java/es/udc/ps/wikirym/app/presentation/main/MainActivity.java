@@ -11,6 +11,8 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import es.udc.ps.wikirym.R;
 import es.udc.ps.wikirym.app.data.UespAPI;
+import es.udc.ps.wikirym.app.domain.CategoryMembersResponse;
+import es.udc.ps.wikirym.app.domain.EntryType;
 import es.udc.ps.wikirym.app.domain.WikiEntry;
 import es.udc.ps.wikirym.app.presentation.BaseActivity;
 import es.udc.ps.wikirym.app.presentation.main.adapter.EntryAdapter;
@@ -59,22 +61,29 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> {
 
         UespAPI api = retrofit.create(UespAPI.class);
 
+        EntryType type = EntryType.QUEST;
         String category = "Category:Skyrim-Quests";
         int limit = 50;
         String format = "json";
         int formatVersion = 2;
-        Call<List<WikiEntry>> call = api.getCategoryMembers(category, limit, format, formatVersion);
+        Call<CategoryMembersResponse> call = api.getCategoryMembers(category, limit, format, formatVersion);
 
-        call.enqueue(new Callback<List<WikiEntry>>() {
+        call.enqueue(new Callback<CategoryMembersResponse>() {
 
             @Override
-            public void onResponse(@NonNull Call<List<WikiEntry>> call,
-                                   @NonNull Response<List<WikiEntry>> response) {
+            public void onResponse(@NonNull Call<CategoryMembersResponse> call,
+                                   @NonNull Response<CategoryMembersResponse> response) {
 
-                if (response.isSuccessful() && response.body() != null) {
+                if (response.isSuccessful() && response.body() != null && response.body().getQuery() != null) {
 
                     Log.i(TAG, "Response OK: " + response.code());
-                    mAdapter.setItems(response.body());
+
+                    // The type is not in the JSON: every entry belongs to the requested category
+                    List<WikiEntry> entries = response.body().getQuery().getCategoryMembers();
+                    for (WikiEntry entry : entries) {
+                        entry.setType(type);
+                    }
+                    mAdapter.setItems(entries);
 
                 } else {
 
@@ -84,10 +93,9 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> {
             }
 
             @Override
-            public void onFailure(@NonNull Call<List<WikiEntry>> call,
+            public void onFailure(@NonNull Call<CategoryMembersResponse> call,
                                   @NonNull Throwable t) {
 
-                // UESP returns an object (not a list): it is solved in the next feature
                 Log.e(TAG, "Response fails: " + t.getMessage());
                 Toast.makeText(MainActivity.this, R.string.error_general, Toast.LENGTH_SHORT).show();
             }
