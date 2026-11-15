@@ -6,15 +6,19 @@ import android.view.ViewGroup;
 import java.util.List;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.StringRes;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.RecyclerView.Adapter;
+import es.udc.ps.wikirym.R;
+import es.udc.ps.wikirym.app.domain.EntryType;
+import es.udc.ps.wikirym.app.domain.WikiEntry;
 import es.udc.ps.wikirym.databinding.RowEntryBinding;
 
 public class EntryAdapter extends Adapter<EntryAdapter.EntryHolder> {
 
-    private List<String> mItems;
+    private List<WikiEntry> mItems;
 
-    public EntryAdapter(List<String> items) {
+    public EntryAdapter(List<WikiEntry> items) {
 
         mItems = items;
     }
@@ -38,17 +42,39 @@ public class EntryAdapter extends Adapter<EntryAdapter.EntryHolder> {
     public void onBindViewHolder(@NonNull EntryAdapter.EntryHolder holder,
                                  int position) {
 
-        holder.mBinding.rowEntryName.setText(mItems.get(position));
+        holder.bind(mItems.get(position));
     }
 
-    public static class EntryHolder extends RecyclerView.ViewHolder {
+    static class EntryHolder extends RecyclerView.ViewHolder {
 
         private final RowEntryBinding mBinding;
 
-        public EntryHolder(RowEntryBinding binding) {
+        private EntryHolder(RowEntryBinding binding) {
 
             super(binding.getRoot());
             mBinding = binding;
+        }
+
+        private void bind(WikiEntry entry) {
+
+            mBinding.rowEntryTitle.setText(entry.getTitle());
+            mBinding.rowEntryType.setText(getTypeLabel(entry.getType()));
+        }
+
+        @StringRes
+        private static int getTypeLabel(EntryType type) {
+
+            switch (type) {
+                case CHARACTER:
+                    return R.string.entry_type_character;
+                case QUEST:
+                    return R.string.entry_type_quest;
+                case ITEM:
+                    return R.string.entry_type_item;
+                case PLACE:
+                default:
+                    return R.string.entry_type_place;
+            }
         }
     }
 
