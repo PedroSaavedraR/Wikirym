@@ -1,0 +1,21 @@
+# Wikirym
+
+Aplicación Android para la asignatura PSI. Consulta la wiki de Skyrim y permite buscar entradas filtrando por tipo: personajes, misiones, objetos, lugares…
+
+Sigue la misma evolución paso a paso que el proyecto de ejemplo de clase (PSICleanArch_v2): de una aplicación **monolítica** con Retrofit a una **arquitectura en capas (Clean)**.
+
+## Tecnologías
+
+- Android Gradle Plugin 9.4, Gradle 9.6 (Kotlin DSL y *version catalog*).
+- Java 11, `compileSdk`/`targetSdk` 37, `minSdk` 23.
+- ViewBinding, Material 3 y RecyclerView.
+
+## Estructura de ramas (gitflow)
+
+- `master`: versiones publicadas.
+- `develop`: integración de todas las features, con un *merge* `--no-ff` por feature.
+- `feature/NN_*`: cada paso de la evolución, con su explicación en `docs/`.
+
+| Rama | Fase | Contenido |
+|------|------|-----------|
+| [`feature/01_lista_de_entradas`](docs/01_lista_de_entradas.md) | Monolítica | RecyclerView y ViewBinding con una lista fija de entradas |
