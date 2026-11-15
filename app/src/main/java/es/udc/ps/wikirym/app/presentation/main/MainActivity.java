@@ -3,24 +3,29 @@ package es.udc.ps.wikirym.app.presentation.main;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.widget.Toast;
 
-import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
+import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
+import es.udc.ps.wikirym.R;
 import es.udc.ps.wikirym.app.data.UespAPI;
 import es.udc.ps.wikirym.app.domain.WikiEntry;
 import es.udc.ps.wikirym.app.presentation.BaseActivity;
 import es.udc.ps.wikirym.app.presentation.main.adapter.EntryAdapter;
 import es.udc.ps.wikirym.databinding.ActivityMainBinding;
 import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MainActivity extends BaseActivity<ActivityMainBinding> {
 
     private static final String TAG = MainActivity.class.getSimpleName();
+
+    private EntryAdapter mAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,11 +46,13 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         mBinding.mainList.setLayoutManager(linearLayoutManager);
 
-        EntryAdapter adapter = new EntryAdapter(getEntries());
-        mBinding.mainList.setAdapter(adapter);
+        mAdapter = new EntryAdapter();
+        mBinding.mainList.setAdapter(mAdapter);
+
+        getEntries();
     }
 
-    private List<WikiEntry> getEntries() {
+    private void getEntries() {
 
         Retrofit retrofit = new Retrofit.Builder().baseUrl("https://en.uesp.net/w/")
                 .addConverterFactory(GsonConverterFactory.create()).build();
@@ -58,16 +65,32 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> {
         int formatVersion = 2;
         Call<List<WikiEntry>> call = api.getCategoryMembers(category, limit, format, formatVersion);
 
-        try {
+        call.enqueue(new Callback<List<WikiEntry>>() {
 
-            // Synchronous call on the main thread: Android throws a NetworkOnMainThreadException.
-            // It is solved in the next feature with an asynchronous call.
-            return call.execute().body();
+            @Override
+            public void onResponse(@NonNull Call<List<WikiEntry>> call,
+                                   @NonNull Response<List<WikiEntry>> response) {
 
-        } catch (IOException | RuntimeException e) {
-            Log.e(TAG, "Response fails", e);
-        }
+                if (response.isSuccessful() && response.body() != null) {
 
-        return new ArrayList<>();
+                    Log.i(TAG, "Response OK: " + response.code());
+                    mAdapter.setItems(response.body());
+
+                } else {
+
+                    Log.e(TAG, "Response fails: " + response.code());
+                }
+
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<List<WikiEntry>> call,
+                                  @NonNull Throwable t) {
+
+                // UESP returns an object (not a list): it is solved in the next feature
+                Log.e(TAG, "Response fails: " + t.getMessage());
+                Toast.makeText(MainActivity.this, R.string.error_general, Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 }

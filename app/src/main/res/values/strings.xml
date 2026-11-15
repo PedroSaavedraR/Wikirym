@@ -1,6 +1,8 @@
 <resources>
     <string name="app_name">Wikirym</string>
 
+    <string name="error_general">Ups, ha ocurrido un error</string>
+
     <string name="entry_type_character">Personaje</string>
     <string name="entry_type_quest">Misión</string>
     <string name="entry_type_item">Objeto</string>
