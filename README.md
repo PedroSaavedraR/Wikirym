@@ -25,3 +25,4 @@ Sigue la misma evolución paso a paso que el proyecto de ejemplo de clase (PSICl
 | [`feature/05_models`](docs/05_models.md) | Monolítica | Modelos `CategoryMembersResponse` y `WikiEntry` que encajan con el JSON de MediaWiki |
 | [`feature/06_retrofit_logging`](docs/06_retrofit_logging.md) | Monolítica | `HttpLoggingInterceptor` de OkHttp (solo en *debug*) |
 | [`feature/07_retrofit_headers`](docs/07_retrofit_headers.md) | Monolítica | Interceptor con `User-Agent`, `Accept` y los parámetros fijos de MediaWiki; lista de personajes |
+| [`feature/08_search_query`](docs/08_search_query.md) | Monolítica | Búsqueda por prefijo mientras se escribe y filtro por tipo con chips |
