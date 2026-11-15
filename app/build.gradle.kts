@@ -32,6 +32,7 @@ android {
     }
     buildFeatures {
         viewBinding = true
+        buildConfig = true
     }
 }
 
@@ -42,6 +43,11 @@ dependencies {
     implementation(libs.constraintlayout)
     implementation(libs.material)
     implementation(libs.recyclerview)
+
+    // Retrofit
+    implementation(libs.retrofit)
+    implementation(libs.retrofit.converter.gson) { exclude(module = "gson") }
+    implementation(libs.gson)
 
     // Testing
     testImplementation(libs.junit)

@@ -8,7 +8,7 @@ Sigue la misma evolución paso a paso que el proyecto de ejemplo de clase (PSICl
 
 - Android Gradle Plugin 9.4, Gradle 9.6 (Kotlin DSL y *version catalog*).
 - Java 11, `compileSdk`/`targetSdk` 37, `minSdk` 23.
-- ViewBinding, Material 3 y RecyclerView.
+- ViewBinding, Material 3, RecyclerView y Retrofit (Gson).
 
 ## Estructura de ramas (gitflow)
 
@@ -20,3 +20,4 @@ Sigue la misma evolución paso a paso que el proyecto de ejemplo de clase (PSICl
 |------|------|-----------|
 | [`feature/01_lista_de_entradas`](docs/01_lista_de_entradas.md) | Monolítica | RecyclerView y ViewBinding con una lista fija de entradas |
 | [`feature/02_model_entry`](docs/02_model_entry.md) | Monolítica | Modelo `WikiEntry` y enum `EntryType`; tema con action bar |
+| [`feature/03_retrofit_1`](docs/03_retrofit_1.md) | Monolítica | Retrofit síncrono contra la API de UESP (`NetworkOnMainThreadException`) |
