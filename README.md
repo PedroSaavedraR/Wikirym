@@ -19,3 +19,4 @@ Sigue la misma evolución paso a paso que el proyecto de ejemplo de clase (PSICl
 | Rama | Fase | Contenido |
 |------|------|-----------|
 | [`feature/01_lista_de_entradas`](docs/01_lista_de_entradas.md) | Monolítica | RecyclerView y ViewBinding con una lista fija de entradas |
+| [`feature/02_model_entry`](docs/02_model_entry.md) | Monolítica | Modelo `WikiEntry` y enum `EntryType`; tema con action bar |

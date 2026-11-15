@@ -7,6 +7,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
+import es.udc.ps.wikirym.app.domain.EntryType;
+import es.udc.ps.wikirym.app.domain.WikiEntry;
 import es.udc.ps.wikirym.app.presentation.BaseActivity;
 import es.udc.ps.wikirym.app.presentation.main.adapter.EntryAdapter;
 import es.udc.ps.wikirym.databinding.ActivityMainBinding;
@@ -36,18 +38,18 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> {
         mBinding.mainList.setAdapter(adapter);
     }
 
-    private List<String> getEntries() {
+    private List<WikiEntry> getEntries() {
 
-        List<String> entries = new ArrayList<>();
+        List<WikiEntry> entries = new ArrayList<>();
 
-        entries.add("Lydia");
-        entries.add("Ulfric Stormcloak");
-        entries.add("Paarthurnax");
-        entries.add("Unbound");
-        entries.add("The Golden Claw");
-        entries.add("Dawnbreaker");
-        entries.add("Ebony Blade");
-        entries.add("Whiterun");
+        entries.add(new WikiEntry(1, "Lydia", EntryType.CHARACTER));
+        entries.add(new WikiEntry(2, "Ulfric Stormcloak", EntryType.CHARACTER));
+        entries.add(new WikiEntry(3, "Paarthurnax", EntryType.CHARACTER));
+        entries.add(new WikiEntry(4, "Unbound", EntryType.QUEST));
+        entries.add(new WikiEntry(5, "The Golden Claw", EntryType.QUEST));
+        entries.add(new WikiEntry(6, "Dawnbreaker", EntryType.ITEM));
+        entries.add(new WikiEntry(7, "Ebony Blade", EntryType.ITEM));
+        entries.add(new WikiEntry(8, "Whiterun", EntryType.PLACE));
 
         return entries;
     }
