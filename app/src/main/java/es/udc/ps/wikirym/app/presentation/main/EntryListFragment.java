@@ -45,7 +45,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class EntryListFragment extends BaseFragment<FragmentEntryListBinding> {
 
-    // Implemented by the activity, which decides how to show the detail of the selected entry
+    // La implementa la actividad, que decide cómo mostrar el detalle
     public interface OnEntrySelectedListener {
 
         void onEntrySelected(WikiEntry entry);
@@ -54,11 +54,11 @@ public class EntryListFragment extends BaseFragment<FragmentEntryListBinding> {
     private static final String TAG = EntryListFragment.class.getSimpleName();
 
     private static final int LIMIT = 50;
-    // Waiting time after the last key before searching, so that not every letter launches a request
+    // Espera tras la última tecla antes de buscar
     private static final long SEARCH_DELAY_MS = 400;
 
     private OnEntrySelectedListener mListener;
-    // The adapter belongs to the fragment, not to its view: the list survives the trip to the detail
+    // Del fragmento, no de la vista: conserva la lista al volver del detalle
     private EntryAdapter mAdapter;
     private UespAPI mApi;
     private Call<?> mCurrentCall;
@@ -101,8 +101,7 @@ public class EntryListFragment extends BaseFragment<FragmentEntryListBinding> {
         setUpView();
     }
 
-    // The text and the selected chip are restored after onViewCreated: the listeners are added
-    // here so that restoring them does not launch extra requests
+    // Listeners tras restaurar texto y chip, para no lanzar peticiones de más
     @Override
     public void onViewStateRestored(@Nullable Bundle savedInstanceState) {
 
@@ -141,7 +140,7 @@ public class EntryListFragment extends BaseFragment<FragmentEntryListBinding> {
         HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor()
                 .setLevel(BuildConfig.DEBUG ? HttpLoggingInterceptor.Level.BODY : HttpLoggingInterceptor.Level.NONE);
         List<Interceptor> interceptors = okHttpClient.interceptors();
-        // Added before the logging interceptor so that the log shows the final request
+        // Antes que el de logging, para que el log muestre la petición final
         interceptors.add(new UespApiInterceptor());
         interceptors.add(loggingInterceptor);
 
@@ -162,7 +161,7 @@ public class EntryListFragment extends BaseFragment<FragmentEntryListBinding> {
 
         mBinding.mainSearchButton.setOnClickListener(v -> onSearch());
         mBinding.mainSearchText.setOnEditorActionListener((v, actionId, event) -> {
-            // A hardware Enter key sends the action twice (key down and key up): only the first one searches
+            // Intro llega dos veces (pulsar y soltar): solo busca la primera
             if (event != null && event.getAction() != KeyEvent.ACTION_DOWN) {
                 return true;
             }
@@ -173,7 +172,7 @@ public class EntryListFragment extends BaseFragment<FragmentEntryListBinding> {
             return false;
         });
 
-        // The list is filtered while the user types
+        // Filtra mientras se escribe
         mBinding.mainSearchText.addTextChangedListener(new TextWatcher() {
 
             @Override
@@ -209,7 +208,7 @@ public class EntryListFragment extends BaseFragment<FragmentEntryListBinding> {
         loadEntries();
     }
 
-    // Without text, the whole category of the selected chip is listed; with text, it is searched inside it
+    // Sin texto lista la categoría del chip; con texto busca dentro de ella
     private void loadEntries() {
 
         mHandler.removeCallbacks(mSearchRunnable);
@@ -221,7 +220,7 @@ public class EntryListFragment extends BaseFragment<FragmentEntryListBinding> {
         EntryType type = getSelectedType();
         String textToSearch = getTextToSearch();
 
-        // Only the last request matters: a slower previous response must not replace it
+        // Solo vale la última petición
         if (mCurrentCall != null) {
             mCurrentCall.cancel();
         }
@@ -287,7 +286,7 @@ public class EntryListFragment extends BaseFragment<FragmentEntryListBinding> {
                 if (response.isSuccessful() && response.body() != null) {
 
                     Log.i(TAG, "Response OK: " + response.code());
-                    // Without results MediaWiki may omit the "query" object
+                    // Sin resultados puede faltar "query"
                     SearchResponse.Query query = response.body().getQuery();
                     showEntries(query != null ? query.getSearch() : null, type);
 
@@ -312,15 +311,14 @@ public class EntryListFragment extends BaseFragment<FragmentEntryListBinding> {
         });
     }
 
-    // CirrusSearch query of MediaWiki: every word must be at the start of a word of the title
-    // ("af" finds "Afflicted", "aela t" finds "Aela the Huntress"), inside the categories of the selected type
+    // Prefijo en el título: "af" encuentra "Afflicted", "aela t" encuentra "Aela the Huntress"
     private String buildSearch(String textToSearch,
                                EntryType type) {
 
         StringBuilder search = new StringBuilder();
 
         for (String word : textToSearch.split("\\s+")) {
-            // Keep only letters, digits, apostrophes and hyphens: the rest is search syntax
+            // Solo letras, números, apóstrofos y guiones: lo demás es sintaxis de búsqueda
             String cleanWord = word.replaceAll("[^\\p{L}\\p{N}'-]", "");
             if (!cleanWord.isEmpty()) {
                 search.append("intitle:").append(cleanWord).append("* ");
@@ -360,7 +358,7 @@ public class EntryListFragment extends BaseFragment<FragmentEntryListBinding> {
     private void showEntries(List<WikiEntry> entries,
                              EntryType type) {
 
-        // The response may arrive after the view has been destroyed
+        // La respuesta puede llegar con la vista ya destruida
         if (mBinding == null) {
             return;
         }
@@ -370,7 +368,7 @@ public class EntryListFragment extends BaseFragment<FragmentEntryListBinding> {
             return;
         }
 
-        // The type is not in the JSON: every entry belongs to the requested category
+        // El tipo no viene en el JSON: es el de la categoría pedida
         for (WikiEntry entry : entries) {
             entry.setType(type);
         }

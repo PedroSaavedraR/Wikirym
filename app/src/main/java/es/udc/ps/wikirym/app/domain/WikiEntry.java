@@ -12,7 +12,7 @@ public class WikiEntry {
     @SerializedName("title")
     private String mTitle;
 
-    // Not in the JSON: it depends on the category that was requested
+    // No viene en el JSON: depende de la categoría pedida
     private EntryType mType;
 
     public WikiEntry(int pageId,

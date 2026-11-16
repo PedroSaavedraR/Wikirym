@@ -12,7 +12,7 @@ import androidx.viewbinding.ViewBinding;
 
 public abstract class BaseFragment<B extends ViewBinding> extends Fragment {
 
-    // Only valid between onCreateView and onDestroyView: the fragment can outlive its view (back stack)
+    // Solo válido entre onCreateView y onDestroyView
     protected B mBinding;
 
     @Nullable

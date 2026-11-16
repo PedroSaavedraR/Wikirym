@@ -45,7 +45,7 @@ public class EntryDetailFragment extends BaseFragment<FragmentEntryDetailBinding
 
     private Call<PageDetailResponse> mCurrentCall;
 
-    // The arguments survive the recreation of the fragment (rotation, process death), unlike constructor parameters
+    // Los arguments sobreviven a la recreación del fragmento
     public static EntryDetailFragment newInstance(WikiEntry entry) {
 
         Bundle args = new Bundle();
@@ -75,7 +75,7 @@ public class EntryDetailFragment extends BaseFragment<FragmentEntryDetailBinding
         String title = args.getString(ARG_TITLE);
         EntryType type = EntryType.valueOf(args.getString(ARG_TYPE));
 
-        // The title of the entry goes in the action bar of the activity
+        // Título en la action bar
         requireActivity().setTitle(title);
 
         mBinding.detailTitle.setText(title);
@@ -159,7 +159,7 @@ public class EntryDetailFragment extends BaseFragment<FragmentEntryDetailBinding
 
     private void showDetail(PageDetail page) {
 
-        // The response may arrive after the view has been destroyed
+        // La respuesta puede llegar con la vista ya destruida
         if (mBinding == null) {
             return;
         }

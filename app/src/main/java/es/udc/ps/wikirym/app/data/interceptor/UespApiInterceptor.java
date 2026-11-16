@@ -14,11 +14,11 @@ public class UespApiInterceptor implements Interceptor {
     private static final String USER_AGENT_HEADER = "User-Agent";
     private static final String ACCEPT_HEADER = "Accept";
 
-    // UESP asks API clients to identify themselves with a descriptive User-Agent
+    // UESP pide identificarse con un User-Agent descriptivo
     private static final String USER_AGENT = "Wikirym/" + BuildConfig.VERSION_NAME + " (https://github.com/PedroSaavedraR/Wikirym)";
     private static final String JSON_RESPONSE = "application/json";
 
-    // Parameters that every MediaWiki request needs: JSON with the modern (version 2) format
+    // Parámetros comunes de MediaWiki: JSON en formato 2
     private static final String FORMAT_PARAM = "format";
     private static final String FORMAT_VALUE = "json";
     private static final String FORMAT_VERSION_PARAM = "formatversion";

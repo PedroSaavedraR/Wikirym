@@ -21,7 +21,7 @@ public class PageDetailResponse {
 
     public static class Query {
 
-        // One element for every requested page (here, always one)
+        // Una por página pedida (aquí, siempre una)
         @SerializedName("pages")
         private List<PageDetail> mPages;
 

@@ -4,7 +4,7 @@ import androidx.annotation.StringRes;
 import es.udc.ps.wikirym.R;
 import es.udc.ps.wikirym.app.domain.EntryType;
 
-// Text shown for every type of entry: the domain enum knows nothing about Android resources
+// Texto de cada tipo; el enum del dominio no conoce los recursos de Android
 public final class EntryTypeLabels {
 
     private EntryTypeLabels() {

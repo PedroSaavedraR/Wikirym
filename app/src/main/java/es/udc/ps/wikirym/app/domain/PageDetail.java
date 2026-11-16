@@ -10,15 +10,15 @@ public class PageDetail {
     @SerializedName("title")
     private String mTitle;
 
-    // Plain text of the introduction of the page (prop=extracts&exintro=1&explaintext=1)
+    // Introducción en texto plano
     @SerializedName("extract")
     private String mExtract;
 
-    // Main image of the page (prop=pageimages&piprop=thumbnail); null if the page has none
+    // Imagen principal; null si no tiene
     @SerializedName("thumbnail")
     private Thumbnail mThumbnail;
 
-    // true when no page has the requested id
+    // true si no existe la página
     @SerializedName("missing")
     private boolean mMissing;
 

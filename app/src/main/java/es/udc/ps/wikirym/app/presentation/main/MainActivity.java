@@ -11,7 +11,7 @@ import es.udc.ps.wikirym.app.presentation.BaseActivity;
 import es.udc.ps.wikirym.app.presentation.detail.EntryDetailFragment;
 import es.udc.ps.wikirym.databinding.ActivityMainBinding;
 
-// Single activity: it only hosts the fragments (list and detail) and manages the action bar
+// Única actividad: aloja los fragmentos y gestiona la action bar
 public class MainActivity extends BaseActivity<ActivityMainBinding>
         implements EntryListFragment.OnEntrySelectedListener {
 
@@ -20,7 +20,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding>
 
         super.onCreate(savedInstanceState);
 
-        // After a rotation the FragmentManager restores the fragments by itself
+        // Tras rotar, el FragmentManager restaura los fragmentos
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()
                     .replace(R.id.main_container, new EntryListFragment())
@@ -40,7 +40,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding>
     @Override
     public void onEntrySelected(WikiEntry entry) {
 
-        // The detail replaces the list and is added to the back stack: Back returns to the list
+        // En la pila, para que Atrás vuelva a la lista
         getSupportFragmentManager().beginTransaction()
                 .setReorderingAllowed(true)
                 .replace(R.id.main_container, EntryDetailFragment.newInstance(entry))
@@ -55,7 +55,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding>
         return true;
     }
 
-    // Back arrow only in the detail; the detail sets its own title, the list shows the app name
+    // Flecha solo en el detalle; en la lista, el nombre de la app
     private void updateActionBar() {
 
         FragmentManager fragmentManager = getSupportFragmentManager();
