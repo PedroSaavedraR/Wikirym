@@ -7,27 +7,38 @@ import java.util.ArrayList;
 import java.util.List;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.StringRes;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.RecyclerView.Adapter;
-import es.udc.ps.wikirym.R;
-import es.udc.ps.wikirym.app.domain.EntryType;
 import es.udc.ps.wikirym.app.domain.WikiEntry;
+import es.udc.ps.wikirym.app.presentation.EntryTypeLabels;
 import es.udc.ps.wikirym.databinding.RowEntryBinding;
 
 public class EntryAdapter extends Adapter<EntryAdapter.EntryHolder> {
 
+    public interface OnEntryClickListener {
+
+        void onEntryClick(WikiEntry entry);
+    }
+
     private List<WikiEntry> mItems;
 
-    public EntryAdapter() {
+    private final OnEntryClickListener mListener;
+
+    public EntryAdapter(OnEntryClickListener listener) {
 
         mItems = new ArrayList<>();
+        mListener = listener;
     }
 
     public void setItems(List<WikiEntry> items) {
 
         mItems = items;
         notifyDataSetChanged();
+    }
+
+    public boolean isEmpty() {
+
+        return mItems.isEmpty();
     }
 
     @NonNull
@@ -49,7 +60,9 @@ public class EntryAdapter extends Adapter<EntryAdapter.EntryHolder> {
     public void onBindViewHolder(@NonNull EntryAdapter.EntryHolder holder,
                                  int position) {
 
-        holder.bind(mItems.get(position));
+        WikiEntry entry = mItems.get(position);
+        holder.bind(entry);
+        holder.itemView.setOnClickListener(v -> mListener.onEntryClick(entry));
     }
 
     static class EntryHolder extends RecyclerView.ViewHolder {
@@ -65,23 +78,7 @@ public class EntryAdapter extends Adapter<EntryAdapter.EntryHolder> {
         private void bind(WikiEntry entry) {
 
             mBinding.rowEntryTitle.setText(entry.getDisplayTitle());
-            mBinding.rowEntryType.setText(getTypeLabel(entry.getType()));
-        }
-
-        @StringRes
-        private static int getTypeLabel(EntryType type) {
-
-            switch (type) {
-                case CHARACTER:
-                    return R.string.entry_type_character;
-                case QUEST:
-                    return R.string.entry_type_quest;
-                case ITEM:
-                    return R.string.entry_type_item;
-                case PLACE:
-                default:
-                    return R.string.entry_type_place;
-            }
+            mBinding.rowEntryType.setText(EntryTypeLabels.getLabel(entry.getType()));
         }
     }
 
