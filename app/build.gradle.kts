@@ -50,6 +50,9 @@ dependencies {
     implementation(libs.gson)
     implementation(libs.okhttp.logging.interceptor)
 
+    // Images
+    implementation(libs.glide)
+
     // Testing
     testImplementation(libs.junit)
     androidTestImplementation(libs.espresso.core)

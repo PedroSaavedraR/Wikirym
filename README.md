@@ -8,7 +8,7 @@ Sigue la misma evolución paso a paso que el proyecto de ejemplo de clase (PSICl
 
 - Android Gradle Plugin 9.4, Gradle 9.6 (Kotlin DSL y *version catalog*).
 - Java 11, `compileSdk`/`targetSdk` 37, `minSdk` 23.
-- ViewBinding, Material 3, RecyclerView y Retrofit (Gson).
+- ViewBinding, Material 3, RecyclerView, fragmentos, Retrofit (Gson) y Glide.
 
 ## Estructura de ramas (gitflow)
 
@@ -26,3 +26,4 @@ Sigue la misma evolución paso a paso que el proyecto de ejemplo de clase (PSICl
 | [`feature/06_retrofit_logging`](docs/06_retrofit_logging.md) | Monolítica | `HttpLoggingInterceptor` de OkHttp (solo en *debug*) |
 | [`feature/07_retrofit_headers`](docs/07_retrofit_headers.md) | Monolítica | Interceptor con `User-Agent`, `Accept` y los parámetros fijos de MediaWiki; lista de personajes |
 | [`feature/08_search_query`](docs/08_search_query.md) | Monolítica | Búsqueda por prefijo mientras se escribe y filtro por tipo con chips |
+| [`feature/09_entry_detail`](docs/09_entry_detail.md) | Monolítica | Detalle de la entrada (segunda petición) con una actividad y dos fragmentos |

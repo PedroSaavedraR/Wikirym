@@ -16,4 +16,8 @@
     <string name="entries_filter_quests">Misiones</string>
     <string name="entries_filter_items">Objetos</string>
     <string name="entries_filter_places">Lugares</string>
+
+    <string name="detail_image_description">Imagen de la entrada</string>
+    <string name="detail_no_extract">Esta entrada no tiene descripción</string>
+    <string name="detail_not_found">No se ha podido cargar la entrada</string>
 </resources>
