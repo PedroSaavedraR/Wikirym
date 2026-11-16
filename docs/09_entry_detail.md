@@ -66,5 +66,5 @@ getSupportFragmentManager().beginTransaction()
 - Gira el móvil: el detalle sigue abierto.
 - Pulsa la flecha o Atrás:
   - vuelves a la lista con el mismo texto y el mismo chip;
-  - la action bar vuelve a mostrar "Wikirym";
+  - la action bar vuelve a mostrar "P32.SaaRubinos";
   - la lista no se vuelve a pedir.

@@ -1,4 +1,4 @@
-# Wikirym
+# P32.SaaRubinos
 
 Aplicación Android para la asignatura PSI. Consulta la wiki de Skyrim y permite buscar entradas filtrando por tipo: personajes, misiones, objetos, lugares…
 

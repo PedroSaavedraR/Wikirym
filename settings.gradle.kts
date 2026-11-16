@@ -22,6 +22,6 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "Wikirym"
+rootProject.name = "P32.SaaRubinos"
 include(":app")
  
